@@ -1,0 +1,48 @@
+description = 'project web module'
+
+apply plugin: 'war'
+
+def springVersion = "4.0.0.RELEASE"
+def springSecurityVersion = "3.2.0.RELEASE"
+def tilesVersion = '3.0.3'
+def jstlVersion = '1.2'
+def commonsFileUploadVersion = '1.3'
+def commonsValidatorVersion = '1.4.0'
+def servletApiVersion = '3.1.0'
+def jspApiVersion = '2.1'
+def elApiVersion = '3.0.0'
+
+dependencies {
+    compile project(':service-impl')
+    compile group: 'org.springframework', name: 'spring-web', version: springVersion
+    compile group: 'org.springframework', name: 'spring-webmvc', version: springVersion
+    compile group: 'org.springframework.security', name: 'spring-security-config', version: springSecurityVersion
+    compile group: 'org.springframework.security', name: 'spring-security-web', version: springSecurityVersion
+    compile group: 'org.springframework.security', name: 'spring-security-taglibs', version: springSecurityVersion
+    compile(group: 'org.apache.tiles', name: 'tiles-core', version: tilesVersion) {
+        exclude(module: 'jcl-over-slf4j')
+        exclude(module: 'slf4j-api')
+    }
+    compile group: 'org.apache.tiles', name: 'tiles-el', version: tilesVersion
+    compile group: 'org.apache.tiles', name: 'tiles-api', version: tilesVersion
+    compile group: 'org.apache.tiles', name: 'tiles-jsp', version: tilesVersion
+    compile 'org.apache.tiles:tiles-request-jsp:1.0.3'
+    compile 'org.apache.tiles:tiles-autotag-core-runtime:1.1.0'
+    compile 'org.apache.tiles:tiles-request-servlet:1.0.3'
+    compile group: 'jstl', name: 'jstl', version: jstlVersion
+    compile group: 'commons-fileupload', name: 'commons-fileupload', version: commonsFileUploadVersion
+    compile group: 'commons-validator', name: 'commons-validator', version: commonsValidatorVersion
+    providedCompile group: 'javax.servlet', name: 'javax.servlet-api', version: servletApiVersion
+    providedCompile group: 'javax.servlet.jsp', name: 'jsp-api', version: jspApiVersion
+    providedCompile group: 'javax.el', name: 'javax.el-api', version: elApiVersion
+}
+
+def getDate() {
+    def date = new Date()
+    def formattedDate = date.format('yyyyMMddHHmmssSSS')
+    return formattedDate
+}
+
+ant.propertyfile(file: "src/main/resources/web.properties") {
+    entry(key: "project.build.timestamp", value: getDate())
+}

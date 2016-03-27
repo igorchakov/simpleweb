@@ -1,0 +1,5 @@
+description = 'project service-api module'
+
+dependencies {
+    compile project(':core')
+}

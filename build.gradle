@@ -1,0 +1,98 @@
+apply plugin: 'release'
+
+
+buildscript {
+    repositories {
+        mavenCentral()
+        maven {
+            url 'http://maven.tmatesoft.com/content/repositories/releases/'
+        }
+    }
+
+    dependencies {
+        classpath "${releasepluginversion}"
+    }
+}
+
+allprojects {
+    apply plugin: 'java'
+    apply plugin: 'idea'
+    apply plugin: 'maven'
+    group = 'ua.org'
+}
+
+subprojects {
+    apply plugin: 'java'
+    sourceCompatibility = 1.7
+    targetCompatibility = 1.7
+    compileJava.options.encoding = 'UTF-8'
+    compileTestJava.options.encoding = 'UTF-8'
+    version = parent.version
+
+    repositories {
+        mavenCentral();
+    }
+
+    def springVersion = "4.0.0.RELEASE"
+    def springSecurityVersion = "3.2.0.RELEASE"
+    def hibernateVersion = "4.3.0.Final"
+    def hibernateValidatorVersion = "5.0.0.Final"
+    def postgreVersion = "9.1-901.jdbc4"
+    def guavaVersion = "12.0"
+    def commonsVersion = "3.0"
+    def log4jVersion = "1.2.17"
+    def slf4jVersion = "1.7.5"
+    def mailVersion = "1.4"
+    def velocityVersion = "1.7"
+    def mockitoVersion = "1.9.5"
+    def testngVersion = "6.8.7"
+    def springDataVersion = "1.4.3.RELEASE"
+    def aspectjVersion = '1.6.2'
+    def aspectjRt = '1.7.4'
+    def jacksonVersion = '2.3.2'
+    def jodaTimeVersion = '2.2'
+    def httpComponentsVersion = '4.5'
+
+    dependencies {
+        compile group: 'org.hibernate', name: 'hibernate-core', version: hibernateVersion
+        compile group: 'org.hibernate', name: 'hibernate-c3p0', version: hibernateVersion
+        compile group: 'org.hibernate', name: 'hibernate-validator', version: hibernateValidatorVersion
+        compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: jacksonVersion
+        compile group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: jacksonVersion
+        compile group: 'com.fasterxml.jackson.core', name: 'jackson-annotations', version: jacksonVersion
+        compile group: 'postgresql', name: 'postgresql', version: postgreVersion
+        compile group: 'org.springframework.security', name: 'spring-security-core', version: springSecurityVersion
+        compile group: 'org.springframework', name: 'spring-tx', version: springVersion
+        compile group: 'org.springframework', name: 'spring-web', version: springVersion
+        compile group: 'org.springframework', name: 'spring-jdbc', version: springVersion
+        compile group: 'org.springframework', name: 'spring-beans', version: springVersion
+        compile group: 'org.springframework', name: 'spring-context', version: springVersion
+        compile group: 'org.springframework', name: 'spring-orm', version: springVersion
+        compile group: 'org.springframework', name: 'spring-aop', version: springVersion
+        compile group: 'org.springframework', name: 'spring-expression', version: springVersion
+        compile group: 'org.springframework', name: 'spring-core', version: springVersion
+        compile group: 'org.springframework', name: 'spring-context-support', version: springVersion
+        compile group: 'org.springframework.data', name: 'spring-data-jpa', version: springDataVersion
+        compile group: 'org.aspectj', name: 'aspectjtools', version: aspectjVersion
+        compile group: 'org.aspectj', name: 'aspectjrt', version: aspectjRt
+        compile group: 'com.google.guava', name: 'guava', version: guavaVersion
+        compile group: 'org.apache.commons', name: 'commons-lang3', version: commonsVersion
+        compile group: 'log4j', name: 'log4j', version: log4jVersion
+        compile group: 'org.slf4j', name: 'slf4j-api', version: slf4jVersion
+        compile group: 'org.slf4j', name: 'slf4j-log4j12', version: slf4jVersion
+        compile group: 'org.slf4j', name: 'jcl-over-slf4j', version: slf4jVersion
+        compile group: 'javax.mail', name: 'mail', version: mailVersion
+        compile group: 'org.apache.velocity', name: 'velocity', version: velocityVersion
+        compile group: 'net.sf.jodreports', name: 'jodreports', version: '2.4.0'
+        compile(group: 'com.artofsolving', name: 'jodconverter-maven-plugin', version: '2.2.1') {
+            exclude(module: 'slf4j-jdk14')
+        }
+
+        compile group: 'org.mockito', name: 'mockito-all', version: mockitoVersion
+        compile group: 'org.testng', name: 'testng', version: testngVersion
+        compile group: 'joda-time', name: 'joda-time', version: jodaTimeVersion
+        compile group: 'org.apache.httpcomponents', name: 'httpclient', version: httpComponentsVersion
+    }
+
+    test.useTestNG()
+}

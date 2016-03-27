@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="
+		http://www.springframework.org/schema/beans  http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.2.xsd">
+
+
+    <util:list id="propertyLocations">
+        <!-- order is extremely important! it allows to make user's configuration more important than internal -->
+        <value>classpath:/web.properties</value>
+
+        <value>classpath:/ua/org/service/impl/service.properties</value>
+        <value>classpath:/ua/org/web/application.properties</value>
+
+        <value>file:/${catalina.home}/conf/project.properties</value>
+    </util:list>
+
+    <import resource="classpath:ua/org/core/core-spring-config.xml"/>
+    <import resource="classpath:ua/org/service/impl/service-impl-spring-config.xml"/>
+
+</beans>

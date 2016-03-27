@@ -1,0 +1,6 @@
+description = 'project service-impl module'
+
+dependencies {
+    compile project(':core')
+    compile project(':service-api')
+}
